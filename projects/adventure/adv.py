@@ -2,6 +2,7 @@ from room import Room
 from player import Player
 from world import World
 
+
 import random
 from ast import literal_eval
 
@@ -25,11 +26,48 @@ world.print_rooms()
 
 player = Player(world.starting_room)
 
+
+class Queue():
+    def __init__(self):
+        self.queue = []
+
+    def enqueue(self, value):
+        self.queue.append(value)
+
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+
+    def size(self):
+        return len(self.queue)
+
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
+
+
 traversal_path = []
+graph = {0: {'n': '?', 's': '?', 'w': '?', 'e': '?'}}
 
 
+def bfs(starting_vertex_id):
+    q = Queue()
+    q.enqueue([starting_vertex_id])
+    visited = set()
+    while q.size() > 0:
+        path = q.dequeue()
+        x = path[-1]
+        if x not in visited:
+            for exit in graph[x]:
+                if graph[x][exit] == '?':
+                    return path
+            visited.add(x)
+            for exit_direction in graph[x]:
+                new_path = list(path)
+                new_path.append(graph[x][exit_direction])
+                q.enqueue(new_path)
+    return None
 
 # TRAVERSAL TEST
 visited_rooms = set()
