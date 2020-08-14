@@ -2,6 +2,7 @@ class User:
     def __init__(self, name):
         self.name = name
 
+
 class SocialGraph:
     def __init__(self):
         self.last_id = 0
@@ -45,8 +46,11 @@ class SocialGraph:
         # !!!! IMPLEMENT ME
 
         # Add users
+        for user in range(num_users):
+            self.add_user(f'User {user + 1}')
 
         # Create friendships
+        #WIP
 
     def get_all_social_paths(self, user_id):
         """
